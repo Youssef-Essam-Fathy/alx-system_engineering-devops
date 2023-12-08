@@ -1,0 +1,4 @@
+#!/bin/bash
+git add .
+git commit -m "command_line_for_the_win"
+git push
