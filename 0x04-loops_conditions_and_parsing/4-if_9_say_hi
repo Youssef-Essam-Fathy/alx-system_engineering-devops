@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" 10 times
+var='Best School'
+num=1
+while [ $num -le 10 ]
+do
+    echo "$var"
+    if [ $num == 9 ]; then
+    echo "Hi"
+    fi
+    ((num++))
+done
