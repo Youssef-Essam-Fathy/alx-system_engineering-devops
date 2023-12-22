@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 #Bash script that displays 
 #a list of currently running processes.
-psa=$(ps -e)
+psa=$(ps -a uf)
 echo "$psa"
