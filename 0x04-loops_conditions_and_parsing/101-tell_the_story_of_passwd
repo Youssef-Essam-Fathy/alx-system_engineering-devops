@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 #This script is displaying the content of the file /etc/passwd
-while IFS=: read -r usrname gid homedir cmd shell uid passwd; do
+while IFS=: read -r usrname passwd gid homedir cmd shell uid ; do
     echo "The user $usrname is part of the $gid gang, lives in $homedir and rides $cmd/$shell. $uid's place is protected by the passcode $passwd, more info about the user here: $usrname"
 done < /etc/passwd
