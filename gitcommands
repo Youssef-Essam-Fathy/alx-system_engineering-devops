@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m "0x07-networking_basics"
+git commit -m "0x06-regular_expressions"
 git push
