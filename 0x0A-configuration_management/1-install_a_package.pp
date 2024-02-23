@@ -1,3 +1,6 @@
+# Ensure Python 3 is installed
+package { 'python3': ensure => installed }
+
 #Using Puppet, install flask from pip3
 
 package { 'flask':
