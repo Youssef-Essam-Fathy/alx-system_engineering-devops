@@ -1,2 +1,2 @@
 Host *
-    IdentityFile
+    IdentityFile ~/.ssh/school
