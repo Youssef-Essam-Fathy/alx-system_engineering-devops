@@ -10,4 +10,4 @@ sudo sed -i 's/root \/var\/www\/html;/root \/var\/www\/html;/' /etc/nginx/sites-
 sudo sed -i 's/index index.html index.htm index.nginx-debian.html;/index index.html;/' /etc/nginx/sites-available/default
 sudo service nginx restart
 sudo netstat -tuln | grep -E 'nginx|80'
-curl localhost
+curl localhost
