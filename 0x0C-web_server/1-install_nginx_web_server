@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # script that configures a new Ubuntu machine to respect bellow requirements
 
-sudo apt-get update -y
+sudo apt-get -y update 
 sudo apt-get install -y nginx
 sudo mkdir -p /var/www/html
 echo "Hello World!" | sudo tee /var/www/html/index.html
