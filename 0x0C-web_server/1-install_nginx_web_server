@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
-#Install nginx on your web-01 server
-sudo apt-get -y update
-sudo apt-get -y install nginx
-sudo echo "Hello World!"  > /var/www/html/index.nginx-debian.html
+# script that configures a new Ubuntu machine to respect bellow requirements
+
+sudo apt-get update -y
+sudo apt-get install -y nginx
+sudo mkdir -p /var/www/html
+echo "Hello World!" | sudo tee /var/www/html/index.html
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
+sudo sed -i 's/root \/var\/www\/html;/root \/var\/www\/html;/' /etc/nginx/sites-available/default
+sudo sed -i 's/index index.html index.htm index.nginx-debian.html;/index index.html;/' /etc/nginx/sites-available/default
 sudo service nginx restart
+sudo netstat -tuln | grep -E 'nginx|80'
+curl localhost
