@@ -1,9 +1,19 @@
 #!/usr/bin/env bash
-#configuration
+# This script configures Nginx to redirect /redirect_me to another page with a 301 Moved Permanently response.
 
-sudo apt-get -y update
-sudo apt-get -y install nginx
-echo "Holberton School" > /var/www/html/index.nginx-debian.html
-cm="rewrite ^/redirect_me https://www.youtube.com/ permanent;"
-sudo sed -i "66i $cm" /etc/nginx/sites-available/default
-sudo service nginx start
+# Update package lists and install nginx
+sudo apt-get update -y
+sudo apt-get install -y nginx
+
+# Create the directory for web files and set up the default index.html page
+sudo mkdir -p /var/www/html
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
+
+# Backup the default Nginx configuration file
+sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
+
+# Modify the default Nginx configuration to include a redirect for /redirect_me
+sudo sed -i '/listen 80 default_server;/a \\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n' /etc/nginx/sites-available/default
+
+# Restart Nginx to apply changes
+sudo service nginx restart

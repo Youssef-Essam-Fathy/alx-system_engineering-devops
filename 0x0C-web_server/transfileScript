@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#The transfileScript is a script that transfer file to server
+file=$1
+./0-transfer_file "$file" 54.152.60.211 ubuntu ~/.ssh/school
+
