@@ -1,16 +1,6 @@
-#config server
+# Installs a Nginx server
 
-package { 'nginx':
-provider => 'apt',
-}
-exec {'hlbtn_page':
-command => '/usr/bin/sudo /bin/echo 'Hello World!' > /var/www/html/index.nginx-debian.html',
-}
-exec {'redirect_page':
-
-command => '/usr/bin/sudo /bin/sed -i "66i rewrite ^/redirect_me https://www.youtube.com/ permanent;" /etc/nginx/sites-available/default',
-}
-exec {'start_server':
-
-command => '/usr/bin/sudo /usr/sbin/service nginx start',
+exec {'install':
+  provider => shell,
+  command  => 'sudo apt-get -y update ; sudo apt-get -y install nginx ; echo "Hello World!" | sudo tee /var/www/html/index.nginx-debian.html ; sudo sed -i "s/server_name _;/server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/ permanent;/" /etc/nginx/sites-available/default ; sudo service nginx start',
 }
