@@ -1,8 +1,4 @@
 #!/bin/env bash
 # This script configures Nginx to listen on port 80
-rm -f /etc/nginx/sites-enabled/default
-# Set up Nginx to listen on port 80
-ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
-# Restart Nginx
+sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
 service nginx restart
