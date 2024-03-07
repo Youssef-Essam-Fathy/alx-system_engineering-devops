@@ -1,0 +1,35 @@
+#!/bin/env bash
+#Bash script that configures my domain zone 
+#so that a subdomain points to my loader-balancer
+#accept 2 arguments
+#1. domain name
+#2. subdomain name
+
+domain="$1"
+subdomain="$2"
+
+function get_record_type() {
+    local domain="$1"
+    local subdomain="$2"
+    local record_type=$(dig +short "$subdomain.$domain" | awk '{print $4}')
+    echo "$record_type"
+}
+
+function get_destination() {
+    local domain="$1"
+    local subdomain="$2"
+    local destination=$(dig +short "$subdomain.$domain" | awk '{print $5}')
+    echo "$destination"
+}
+
+if [[ -z "$subdomain" ]]; then
+    subdomains=("www" "lb-01" "web-01" "web-02")
+else
+    subdomains=("$subdomain")
+fi
+
+for sub in "${subdomains[@]}"; do
+    record_type=$(get_record_type "$domain" "$sub")
+    destination=$(get_destination "$domain" "$sub")
+    echo "The subdomain $sub is a $record_type record and points to $destination"
+done
