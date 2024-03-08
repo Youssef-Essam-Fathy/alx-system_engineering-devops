@@ -1,35 +1,35 @@
-#!/bin/env bash
-#Bash script that configures my domain zone 
-#so that a subdomain points to my loader-balancer
-#accept 2 arguments
-#1. domain name
-#2. subdomain name
+#!/usr/bin/env bash
+# This script displays information about subdomains of a given domain.
 
-domain="$1"
-subdomain="$2"
-
-function get_record_type() {
+# Function to display subdomain information
+display_info() {
     local domain="$1"
     local subdomain="$2"
-    local record_type=$(dig +short "$subdomain.$domain" | awk '{print $4}')
-    echo "$record_type"
+    local record_type=$(dig "$subdomain.$domain" | awk '/^'${subdomain}'\./ {print $4}')
+    local destination=$(dig "$subdomain.$domain" | awk '/^'${subdomain}'\./ {print $5}')
+
+    echo "The subdomain $subdomain is a $record_type record and points to $destination"
 }
 
-function get_destination() {
+# Main function
+main() {
     local domain="$1"
     local subdomain="$2"
-    local destination=$(dig +short "$subdomain.$domain" | awk '{print $5}')
-    echo "$destination"
+
+    if [ -z "$subdomain" ]; then
+        subdomain_list=("www" "lb-01" "web-01" "web-02")
+        for sub in "${subdomain_list[@]}"; do
+            display_info "$domain" "$sub"
+        done
+    else
+        display_info "$domain" "$subdomain"
+    fi
 }
 
-if [[ -z "$subdomain" ]]; then
-    subdomains=("www" "lb-01" "web-01" "web-02")
-else
-    subdomains=("$subdomain")
+# Check if arguments are provided
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 <domain> [<subdomain>]"
+    exit 1
 fi
 
-for sub in "${subdomains[@]}"; do
-    record_type=$(get_record_type "$domain" "$sub")
-    destination=$(get_destination "$domain" "$sub")
-    echo "The subdomain $sub is a $record_type record and points to $destination"
-done
+main "$@"
