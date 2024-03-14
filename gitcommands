@@ -1,4 +1,4 @@
 #!/bin/bash
 git add .
-git commit -m "0x10-https_ssl"
+git commit -m "0x11-what_happens_when_your_type_google_com_in_your_browser_and_press_enter"
 git push
