@@ -1,3 +1,1 @@
-# Install MYSQL
-
-Install Mysql Server on both servers
+0x14-mysql
