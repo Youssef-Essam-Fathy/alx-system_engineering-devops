@@ -7,5 +7,8 @@ month=$(date +"%m")
 year=$(date +"%Y")
 file_name="$day-$month-$year.tar.gz"
 
-mysqldump --all-databases -u root --password="$1" > backup.sql
+# Execute mysqldump, redirecting standard error to /dev/null
+mysqldump --all-databases -u root --password="$1" 2>/dev/null > backup.sql
+
+# Create tar.gz archive
 tar -czvf "$file_name" backup.sql
