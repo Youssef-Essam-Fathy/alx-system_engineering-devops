@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 '''importing requests module'''
+
 import requests
 import sys
 
@@ -7,7 +8,7 @@ if __name__ == "__main__":
     employeeId = sys.argv[1]
     employee = requests.get("https://jsonplaceholder.typicode.com/users/{}"
                             .format(employeeId))
-    name = employee.json().get("name")
+    name = employee.json().get('name')
 
     todos = requests.get('https://jsonplaceholder.typicode.com/todos')
     totalTasks = 0
