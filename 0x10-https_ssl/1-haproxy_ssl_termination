@@ -40,5 +40,5 @@ frontend Youssef-frontend
         default_backend Youssef-backend
 backend Youssef-backend
         balance roundrobin
-        server web-01 54.152.60.211:80 check
-        server web-02 34.229.71.198:80 check
+        server web-01 34.227.101.120:80 check
+        server web-02 100.25.138.206:80 check
