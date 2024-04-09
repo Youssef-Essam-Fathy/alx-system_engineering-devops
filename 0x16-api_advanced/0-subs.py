@@ -1,15 +1,11 @@
 #!/usr/bin/python3
-'''
-Importing a module
-'''
-import requests
+'''Importing a module'''
 
 
 def number_of_subscribers(subreddit):
-    '''
-    Queries  the Reddit API
-    and returns the number of subscribers
-    '''
+    '''Queries  the Reddit API
+    and returns the number of subscribers'''
+    import requests
     url = "https://www.reddit.com/r/{}/about.json"
     sub_info = requests.get(url.format(subreddit),
                             headers={"User-Agent": "My-User-Agent"},
