@@ -2,4 +2,5 @@
 
 exec { 'change-os-configuration-for-holberton-user':
   command => 'ulimit -n 4096',
+  path   => '/usr/local/bin/:/bin/
 }
