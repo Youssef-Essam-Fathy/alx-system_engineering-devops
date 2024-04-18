@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Get the process IDs of Gunicorn workers
+pids=$(ps aux | grep '[g]unicorn' | awk '{print $2}')
+
+# Gracefully reload Gunicorn by sending SIGHUP signal to each worker
+for pid in $pids; do
+    echo "Reloading Gunicorn worker $pid"
+    kill -s SIGHUP $pid
+done
+
+echo "Gunicorn reloaded successfully"
