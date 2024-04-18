@@ -1,12 +1,23 @@
 #!/usr/bin/env bash
+# Script to reload Gunicorn without downtime
 
-# Get the process IDs of Gunicorn workers
-pids=$(ps aux | pgrep '[g]unicorn' | awk '{print $2}')
+# Check if Gunicorn process is running
+if pgrep gunicorn >/dev/null 2>&1; then
+    # Get the PID of Gunicorn master process
+    MASTER_PID=$(pgrep gunicorn)
 
-# Gracefully reload Gunicorn by sending SIGHUP signal to each worker
-for pid in $pids; do
-    echo "Reloading Gunicorn worker $pid"
-    kill -s SIGHUP "$pid"
-done
+    # Gracefully restart Gunicorn master process
+    kill -HUP "$MASTER_PID"
 
-echo "Gunicorn reloaded successfully"
+    # Wait for a moment to allow Gunicorn to gracefully reload
+    sleep 2
+
+    # Check if Gunicorn has been successfully reloaded
+    if pgrep -P "$MASTER_PID" >/dev/null 2>&1; then
+        echo "Gunicorn reloaded without downtime."
+    else
+        echo "Failed to reload Gunicorn."
+    fi
+else
+    echo "Gunicorn is not running."
+fi
